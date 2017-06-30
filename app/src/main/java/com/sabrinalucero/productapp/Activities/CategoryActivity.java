@@ -13,9 +13,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.sabrinalucero.productapp.R;
 import com.sabrinalucero.productapp.Utils.Util;
+import com.sabrinalucero.productapp.adapters.CategoryAdapter;
+import com.sabrinalucero.productapp.dbUtils.CategoryUtils;
 import com.sabrinalucero.productapp.model.Category;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryActivity extends AppCompatActivity {
@@ -24,7 +25,8 @@ public class CategoryActivity extends AppCompatActivity {
   private SharedPreferences prefs;
 
   private ListView listView;
-  private List<Category> names;
+  private List<Category> categories;
+  private CategoryUtils categoryUtil = new CategoryUtils();
 
 
   @Override
@@ -34,33 +36,16 @@ public class CategoryActivity extends AppCompatActivity {
 
     //accedemos al mismo archivo llamandolo del mismo modo
     prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
-
     listView = (ListView) findViewById(R.id.listView);
 
-    //creamos los datos de la lista datos que muestro
-    names = new ArrayList<>();
-
-    names.add(new Category(1, "Lacteos", "Producto con vencimiento"));
-    names.add(new Category(2, "Frutas", "Producto con vencimiento"));
-    names.add(new Category(3, "Verduras", "Producto con vencimiento"));
-    names.add(new Category(4, "Carniceria", "Producto con vencimiento"));
-    names.add(new Category(5, "Limpieza", "Producto con vencimiento"));
-    names.add(new Category(6, "Panaderia", "Producto con vencimiento"));
-    names.add(new Category(7, "Bebidas", "Producto con vencimiento"));
-    names.add(new Category(8, "Otros", "Producto con vencimiento"));
-
-    //Adaptador, esto es una forma visual de mostrar los datos
-   // ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
-
-    //enlazamos el adaptador con nuestro listView
-  //   listView.setAdapter(adapter);
-
+    categoryUtil.initDb(this);
+    categories = categoryUtil.getAll();
 
     //mostrara el contenido segun el evento que presione en cada item del LV
     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(CategoryActivity.this, "clicked : " + names.get(position), Toast.LENGTH_SHORT).show();
+        Toast.makeText(CategoryActivity.this, "clicked : " + categories.get(position), Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(CategoryActivity.this, ProductsActivity.class);
         intent.putExtra("CATEGORY_ID", position);
@@ -70,7 +55,7 @@ public class CategoryActivity extends AppCompatActivity {
     });
 
     //enlazamos con nuestro adaptador personalizado
-    CategoryAdapter myAdapter = new CategoryAdapter(this, R.layout.category_item, names);
+    CategoryAdapter myAdapter = new CategoryAdapter(this, R.layout.category_item, categories);
     listView.setAdapter(myAdapter);
 
   }

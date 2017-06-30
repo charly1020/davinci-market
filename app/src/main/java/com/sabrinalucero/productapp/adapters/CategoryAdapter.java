@@ -1,14 +1,17 @@
-package com.sabrinalucero.productapp.Activities;
+package com.sabrinalucero.productapp.adapters;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.sabrinalucero.productapp.R;
 import com.sabrinalucero.productapp.model.Category;
 import java.util.List;
-import static com.sabrinalucero.productapp.R.id.textView;
 
 /**
  * Created by charly on 6/30/17.
@@ -64,7 +67,8 @@ public class CategoryAdapter extends BaseAdapter {
             //en el objeto holder guardamos a la referencia del text view
             //referenciamos el elemento a modificar y lo rellenamos
 
-            holder.nameTextView = (TextView) convertView.findViewById(textView);
+            holder.categoryTextView = (TextView) convertView.findViewById(R.id.cateoryTextView);
+            holder.categoryIconView = (ImageView) convertView.findViewById(R.id.categoryImageView);
 
             //seteamos un tag con una instancia del objeto - sino podria ser clave valor si quiero pasar mas referencias.
             convertView.setTag(holder);
@@ -74,10 +78,13 @@ public class CategoryAdapter extends BaseAdapter {
 
         //devuelve el valor actual segun la posicion
         String currentName = names.get(position).getName();
-        //currentName = (String) getItem(position);
+        int resourceId = context.getResources().getIdentifier(currentName, "drawable", context.getPackageName());
+
+        Drawable myDrawable = context.getResources().getDrawable(resourceId);
 
         //referenciamos el elemento a modificar y lo rellenamos
-        holder.nameTextView.setText(currentName);
+        holder.categoryTextView.setText(currentName);
+        holder.categoryIconView.setImageDrawable(myDrawable);
 
 
         //devolvemos vista inflada y modificada
@@ -86,9 +93,7 @@ public class CategoryAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-
-        private TextView nameTextView;
-
-
+        private TextView categoryTextView;
+        private ImageView categoryIconView;
     }
 }
