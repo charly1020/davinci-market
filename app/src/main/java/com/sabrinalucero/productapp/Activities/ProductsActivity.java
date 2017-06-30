@@ -44,12 +44,14 @@ public class ProductsActivity extends AppCompatActivity {
     gridView = (GridView) findViewById(R.id.gridView);
 
     categories = categoryUtil.getAll(this);
-    productsUtils.initDb(this, categories);
-    products = productsUtils.getAll();
+
+    int categoryId = getIntent().getIntExtra("CATEGORY_ID",5);
+
+    products = productsUtils.getProductsById(categoryId, this);
+    //products = productsUtils.getAll();
 
     //creamos los datos de la lista- datos que muestro
     //names = new ArrayList<Product>();
-    products.add(new Product(0,"banana", "Alta banana", 0));
 
     final Bundle b = getIntent().getExtras();
 
@@ -122,7 +124,7 @@ public class ProductsActivity extends AppCompatActivity {
 
         return true;
       case R.id.adding_item:
-        //this.names.add("Added  n°"+ (++counter));
+        //this.names.add(new Product(90, ""));
         //este metodo hace que se refresque, habiendo sumado el valor anterior, notifique al adapter y se refresque
         this.myAdapter.notifyDataSetChanged(); //TODO ver si hace falta
       default:

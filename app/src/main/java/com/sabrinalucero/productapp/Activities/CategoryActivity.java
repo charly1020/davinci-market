@@ -15,6 +15,7 @@ import com.sabrinalucero.productapp.R;
 import com.sabrinalucero.productapp.Utils.Util;
 import com.sabrinalucero.productapp.adapters.CategoryAdapter;
 import com.sabrinalucero.productapp.dbUtils.CategoryUtils;
+import com.sabrinalucero.productapp.dbUtils.ProductsUtils;
 import com.sabrinalucero.productapp.model.Category;
 
 import java.util.List;
@@ -27,6 +28,8 @@ public class CategoryActivity extends AppCompatActivity {
   private ListView listView;
   private List<Category> categories;
   private CategoryUtils categoryUtil = new CategoryUtils();
+  private ProductsUtils productsUtils = new ProductsUtils();
+
 
 
   @Override
@@ -40,6 +43,9 @@ public class CategoryActivity extends AppCompatActivity {
 
     categoryUtil.initDb(this);
     categories = categoryUtil.getAll(this);
+    productsUtils.initDb(this, categories);
+
+    categories = categoryUtil.getAll(this);
 
     //mostrara el contenido segun el evento que presione en cada item del LV
     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -48,7 +54,7 @@ public class CategoryActivity extends AppCompatActivity {
         Toast.makeText(CategoryActivity.this, "clicked : " + categories.get(position).getName(), Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(CategoryActivity.this, ProductsActivity.class);
-        intent.putExtra("CATEGORY_ID", position);
+        intent.putExtra("CATEGORY_ID", categories.get(position).getId());
         startActivity(intent);
 
       }
