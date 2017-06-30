@@ -10,24 +10,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sabrinalucero.productapp.R;
-import com.sabrinalucero.productapp.model.Product;
+import com.sabrinalucero.productapp.model.CartMarket;
+import com.sabrinalucero.productapp.model.Category;
 
 import java.util.List;
 
-import static com.sabrinalucero.productapp.R.id.textView;
-
 /**
- * Created by charly on 6/30/17.
+ * Created by sabrina on 6/30/17.
  */
 
-public class ProductAdapter extends BaseAdapter {
+public class CartAdapter extends BaseAdapter {
 
 
     private Context context;
     private int layout;
-    private List<Product> names;
+    private List<CartMarket> names;
 
-    public ProductAdapter(Context context, int layout, List<Product> names) {
+    public CartAdapter(Context context, int layout, List<CartMarket> names) {
         this.context = context;
         this.layout = layout;
         this.names= names;
@@ -55,7 +54,7 @@ public class ProductAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         //View Holder Pattern
-        ProductAdapter.ViewHolder holder;
+        CartAdapter.ViewHolder holder;
 
         if (convertView == null) {
             //la inflamos, vista con el layout
@@ -64,20 +63,19 @@ public class ProductAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(this.layout, null);
 
             //creamos una nueva instancia del holder
-            holder = new ProductAdapter.ViewHolder();
+            holder = new CartAdapter.ViewHolder();
 
             //con esto añadimos esta referencia en una nueva instancia en el holder
             //en el objeto holder guardamos a la referencia del text view
             //referenciamos el elemento a modificar y lo rellenamos
 
-            holder.nameTextView = (TextView) convertView.findViewById(textView);
-            holder.productIconView = (ImageView) convertView.findViewById(R.id.productImageView);
-
+            holder.cartTextView = (TextView) convertView.findViewById(R.id.cateoryTextView);
+            holder.cartIconView = (ImageView) convertView.findViewById(R.id.categoryImageView);
 
             //seteamos un tag con una instancia del objeto - sino podria ser clave valor si quiero pasar mas referencias.
             convertView.setTag(holder);
         } else {
-            holder = (ProductAdapter.ViewHolder) convertView.getTag();
+            holder = (CartAdapter.ViewHolder) convertView.getTag();
         }
 
         //devuelve el valor actual segun la posicion
@@ -86,12 +84,11 @@ public class ProductAdapter extends BaseAdapter {
 
         if(resourceId > 0) {
             Drawable myDrawable = context.getResources().getDrawable(resourceId);
-            holder.productIconView.setImageDrawable(myDrawable);
+            holder.cartIconView.setImageDrawable(myDrawable);
         }
 
         //referenciamos el elemento a modificar y lo rellenamos
-        holder.nameTextView.setText(currentName);
-
+        holder.cartTextView.setText(currentName);
 
 
         //devolvemos vista inflada y modificada
@@ -100,7 +97,7 @@ public class ProductAdapter extends BaseAdapter {
     }
 
     static class ViewHolder {
-        private TextView nameTextView;
-        private ImageView productIconView;
+        private TextView cartTextView;
+        private ImageView cartIconView;
     }
 }

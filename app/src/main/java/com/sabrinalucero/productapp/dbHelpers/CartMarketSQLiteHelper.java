@@ -8,11 +8,11 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by sabrina on 6/30/17.
  */
 
-public class CategorySQLiteHelper extends SQLiteOpenHelper {
+public class CartMarketSQLiteHelper extends SQLiteOpenHelper {
 
-    String sqlCreate = "CREATE TABLE Category(id INTEGER PRIMARY KEY NOT NULL, name TEXT, description TEXT)";
+    String sqlCreate = "CREATE TABLE CartList(id INTEGER PRIMARY KEY NOT NULL, name TEXT, description TEXT, cart_date DATE, status BOOLEAN)";
 
-    public CategorySQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public CartMarketSQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
 
     }
@@ -28,7 +28,8 @@ public class CategorySQLiteHelper extends SQLiteOpenHelper {
     }
 
     public void clearTable(SQLiteDatabase db){
-        db.execSQL("DROP TABLE IF EXISTS Category");
+        db.execSQL("DROP TABLE IF EXISTS CartList");
         db.execSQL(sqlCreate);
     }
+
 }

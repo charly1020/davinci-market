@@ -1,6 +1,7 @@
 package com.sabrinalucero.productapp.Activities;
 
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -9,17 +10,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.sabrinalucero.productapp.R;
 import com.sabrinalucero.productapp.adapters.ProductAdapter;
+import com.sabrinalucero.productapp.dbUtils.CartMarketUtils;
 import com.sabrinalucero.productapp.dbUtils.CategoryUtils;
 import com.sabrinalucero.productapp.dbUtils.ProductsUtils;
+import com.sabrinalucero.productapp.model.CartMarket;
 import com.sabrinalucero.productapp.model.Category;
 import com.sabrinalucero.productapp.model.Product;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ProductsActivity extends AppCompatActivity {
@@ -30,11 +36,15 @@ public class ProductsActivity extends AppCompatActivity {
 
   private int counter = 0;
 
+  private Button btnCart;
   private ProductAdapter myAdapter;
   private List<Category> categories;
   private List<Product> products;
   private CategoryUtils categoryUtil = new CategoryUtils();
   private ProductsUtils productsUtils = new ProductsUtils();
+  private CartMarketUtils cartMarketUtils = new CartMarketUtils();
+
+  private Product currentContextualProduct;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +58,7 @@ public class ProductsActivity extends AppCompatActivity {
     int categoryId = getIntent().getIntExtra("CATEGORY_ID",5);
 
     products = productsUtils.getProductsById(categoryId, this);
-    //products = productsUtils.getAll();
-
-    //creamos los datos de la lista- datos que muestro
-    //names = new ArrayList<Product>();
+    cartMarketUtils.initDb(this);
 
     final Bundle b = getIntent().getExtras();
 
@@ -67,6 +74,15 @@ public class ProductsActivity extends AppCompatActivity {
     //enlazamos con nuestro adaptador personalizado
     myAdapter = new ProductAdapter (this, R.layout.product_item, products);
     gridView.setAdapter(myAdapter);
+
+    btnCart = (Button) findViewById(R.id.btnGoCart);
+    btnCart.setOnClickListener(new View.OnClickListener() {
+      public void onClick(View v) {
+        // Code here executes on main thread after user presses button
+        Intent intent = new Intent(ProductsActivity.this, CartActivity.class);
+        startActivity(intent);
+      }
+    });
 
     //registro de un context menu
     registerForContextMenu(gridView);
@@ -100,8 +116,9 @@ public class ProductsActivity extends AppCompatActivity {
   @Override
   public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
     MenuInflater inflater = getMenuInflater();
-
     AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+
+    currentContextualProduct = this.products.get(info.position);
     //Accedemos al elemento seleccionado para saber cual estamos por borrar
     String title = this.products.get(info.position).getName();
     menu.setHeaderTitle(title);
@@ -111,10 +128,10 @@ public class ProductsActivity extends AppCompatActivity {
   }
 
   @Override
-  public boolean onContextItemSelected(MenuItem item) {
-    AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+  public boolean onContextItemSelected(MenuItem menuItem) {
+    AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuItem.getMenuInfo();
 
-    switch(item.getItemId()){
+    switch(menuItem.getItemId()){
       case R.id.delete_item:
 
         //Se borra nombre-item clickeado, accediendo desde info a la posicion del elemento que fue seleccionado
@@ -126,10 +143,18 @@ public class ProductsActivity extends AppCompatActivity {
       case R.id.adding_item:
         //this.names.add(new Product(90, ""));
         //este metodo hace que se refresque, habiendo sumado el valor anterior, notifique al adapter y se refresque
+        addItemToCart(currentContextualProduct);
         this.myAdapter.notifyDataSetChanged(); //TODO ver si hace falta
       default:
-        return super.onContextItemSelected(item);
+        return super.onContextItemSelected(menuItem);
     }
+  }
+
+  private void addItemToCart(Product product) {
+
+    CartMarket newCartMarket = new CartMarket(0, product.getName(), product.getDescription(), new Date(), true);
+    cartMarketUtils.createItem(newCartMarket);
+
   }
 }
 

@@ -21,5 +21,13 @@
         android:gravity="center"
         android:stretchMode="columnWidth"/>
 
+    <Button
+        android:id="@+id/btnGoCart"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:gravity="bottom|center"
+        android:text="Go Cart"
+        android:visibility="visible" />
+
 
 </RelativeLayout>

@@ -51,7 +51,7 @@ public class CategoryActivity extends AppCompatActivity {
     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(CategoryActivity.this, "clicked : " + categories.get(position).getName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(CategoryActivity.this, categories.get(position).getName().toUpperCase(), Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(CategoryActivity.this, ProductsActivity.class);
         intent.putExtra("CATEGORY_ID", categories.get(position).getId());
