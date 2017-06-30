@@ -95,7 +95,7 @@ public class CategoryActivity extends AppCompatActivity {
       case R.id.preferences:
       {
         Intent intent1 = new Intent();
-        intent1.setClassName(this, "com.sabrinalucero.productapp.Activities.MyPreferenceActivity");
+        intent1.setClassName(this, "com.sabrinalucero.productapp.activities.MyPreferenceActivity");
         startActivity(intent1);
         return true;
       }
