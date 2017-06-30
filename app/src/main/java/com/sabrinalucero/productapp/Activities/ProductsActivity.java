@@ -52,6 +52,8 @@ public class ProductsActivity extends AppCompatActivity {
 
   Intent intent;
 
+  private int idCartProduct = 0;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -172,9 +174,10 @@ public class ProductsActivity extends AppCompatActivity {
 
   private void addItemToCart(Product product) {
 
-    CartMarket newCartMarket = new CartMarket(0, product.getName(), product.getDescription(), new Date(), true);
-    cartMarketUtils.createItem(newCartMarket);
 
+    CartMarket newCartMarket = new CartMarket(idCartProduct, product.getName(), product.getDescription(), new Date(), true);
+    cartMarketUtils.createItem(newCartMarket);
+    idCartProduct++;
   }
 
   private void logOut() {

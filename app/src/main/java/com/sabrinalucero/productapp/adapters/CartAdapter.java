@@ -69,8 +69,8 @@ public class CartAdapter extends BaseAdapter {
             //en el objeto holder guardamos a la referencia del text view
             //referenciamos el elemento a modificar y lo rellenamos
 
-            holder.cartTextView = (TextView) convertView.findViewById(R.id.cateoryTextView);
-            holder.cartIconView = (ImageView) convertView.findViewById(R.id.categoryImageView);
+            holder.cartTextView = (TextView) convertView.findViewById(R.id.cartTextView);
+            holder.cartIconView = (ImageView) convertView.findViewById(R.id.cartIconView);
 
             //seteamos un tag con una instancia del objeto - sino podria ser clave valor si quiero pasar mas referencias.
             convertView.setTag(holder);
