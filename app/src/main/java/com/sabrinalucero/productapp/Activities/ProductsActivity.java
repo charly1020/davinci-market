@@ -48,8 +48,8 @@ public class ProductsActivity extends AppCompatActivity {
     products = productsUtils.getAll();
 
     //creamos los datos de la lista- datos que muestro
-    names = new ArrayList<Product>();
-    names.add(new Product(0,"banana", "Alta banana", 0));
+    //names = new ArrayList<Product>();
+    products.add(new Product(0,"banana", "Alta banana", 0));
 
     final Bundle b = getIntent().getExtras();
 
@@ -57,7 +57,7 @@ public class ProductsActivity extends AppCompatActivity {
     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String text = b.get("CATEGORY_ID") + "-clicked : " + names.get(position);
+        String text = b.get("CATEGORY_ID") + "-clicked : " + products.get(position);
         Toast.makeText(ProductsActivity.this, text, Toast.LENGTH_SHORT).show();
       }
     });
@@ -101,7 +101,8 @@ public class ProductsActivity extends AppCompatActivity {
 
     AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
     //Accedemos al elemento seleccionado para saber cual estamos por borrar
-    menu.setHeaderTitle(this.names.get(info.position).getName());
+    String title = this.products.get(info.position).getName();
+    menu.setHeaderTitle(title);
 
     inflater.inflate(R.menu.context_menu, menu);
 
@@ -115,7 +116,7 @@ public class ProductsActivity extends AppCompatActivity {
       case R.id.delete_item:
 
         //Se borra nombre-item clickeado, accediendo desde info a la posicion del elemento que fue seleccionado
-        this.names.remove(info.position);
+        this.products.remove(info.position);
         //este metodo hace que se refresque, habiendo sumado el valor anterior, notifique al adapter y se refresque
         this.myAdapter.notifyDataSetChanged();
 
