@@ -30,7 +30,7 @@ public class ProductsActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.category_grid);
+    setContentView(R.layout.products_grid);
 
     gridView = (GridView) findViewById(R.id.gridView);
 
@@ -58,7 +58,7 @@ public class ProductsActivity extends AppCompatActivity {
     });
 
     //enlazamos con nuestro adaptador personalizado
-   myAdapter = new MyAdapter (this, R.layout.grid_item, names);
+   myAdapter = new MyAdapter (this, R.layout.product_item, names);
     gridView.setAdapter(myAdapter);
 
     //registro de un context menu

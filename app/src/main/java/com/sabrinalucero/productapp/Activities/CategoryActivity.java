@@ -28,7 +28,7 @@ public class CategoryActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+    setContentView(R.layout.categories_list);
 
     //accedemos al mismo archivo llamandolo del mismo modo
     prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
@@ -67,7 +67,7 @@ public class CategoryActivity extends AppCompatActivity {
     });
 
     //enlazamos con nuestro adaptador personalizado
-    MyAdapter myAdapter = new MyAdapter(this, R.layout.list_products, names);
+    MyAdapter myAdapter = new MyAdapter(this, R.layout.category_item, names);
     listView.setAdapter(myAdapter);
 
   }
