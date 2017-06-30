@@ -10,7 +10,7 @@
     </style>
 
     <style name="SplashScreen" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@drawable/shooping_cart</item>
+        <item name="android:windowBackground">@drawable/shooping_cart2</item>
     </style>
 
 
