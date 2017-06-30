@@ -8,20 +8,19 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by sabrina on 6/30/17.
  */
 
-public class CategorySQLiteHelper extends SQLiteOpenHelper {
+public class ProductSQLLiteHelper extends SQLiteOpenHelper {
 
-    String sqlCreate = "CREATE TABLE Category(id INTEGER PRIMARY KEY NOT NULL, name TEXT, description TEXT)";
+    String sqlCreate = "CREATE TABLE Product(id INTEGER PRIMARY KEY NOT NULL, name TEXT, description TEXT, product_cat INTEGER, FOREIGN KEY(product_cat) REFERENCES Category(id))";
 
-    public CategorySQLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+
+    public ProductSQLLiteHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
 
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
         db.execSQL(sqlCreate);
-
     }
 
     @Override
@@ -30,7 +29,8 @@ public class CategorySQLiteHelper extends SQLiteOpenHelper {
     }
 
     public void clearTable(SQLiteDatabase db){
-        db.execSQL("DROP TABLE IF EXISTS Category");
+        db.execSQL("DROP TABLE IF EXISTS Product");
         db.execSQL(sqlCreate);
     }
+
 }

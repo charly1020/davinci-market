@@ -13,19 +13,28 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.sabrinalucero.productapp.R;
+import com.sabrinalucero.productapp.adapters.ProductAdapter;
+import com.sabrinalucero.productapp.dbUtils.CategoryUtils;
+import com.sabrinalucero.productapp.dbUtils.ProductsUtils;
+import com.sabrinalucero.productapp.model.Category;
+import com.sabrinalucero.productapp.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductsActivity extends AppCompatActivity {
 
-  private List<String> names;
+  private List<Product> names;
   private GridView gridView;
 
 
   private int counter = 0;
 
-  private MyAdapter myAdapter;
+  private ProductAdapter myAdapter;
+  private List<Category> categories;
+  private List<Product> products;
+  private CategoryUtils categoryUtil = new CategoryUtils();
+  private ProductsUtils productsUtils = new ProductsUtils();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -34,16 +43,13 @@ public class ProductsActivity extends AppCompatActivity {
 
     gridView = (GridView) findViewById(R.id.gridView);
 
+    categories = categoryUtil.getAll(this);
+    productsUtils.initDb(this, categories);
+    products = productsUtils.getAll();
+
     //creamos los datos de la lista- datos que muestro
-    names = new ArrayList<String>();
-    names.add("LÁCTEOS");
-    names.add("FRUTAS");
-    names.add("VERDURAS");
-    names.add("CARNICERIA");
-    names.add("LIMPIEZA");
-    names.add("PANADERIA");
-    names.add("BEBIDAS");
-    names.add("OTROS");
+    names = new ArrayList<Product>();
+    names.add(new Product(0,"banana", "Alta banana", 0));
 
     final Bundle b = getIntent().getExtras();
 
@@ -57,7 +63,7 @@ public class ProductsActivity extends AppCompatActivity {
     });
 
     //enlazamos con nuestro adaptador personalizado
-   myAdapter = new MyAdapter (this, R.layout.product_item, names);
+    myAdapter = new ProductAdapter (this, R.layout.product_item, products);
     gridView.setAdapter(myAdapter);
 
     //registro de un context menu
@@ -78,7 +84,7 @@ public class ProductsActivity extends AppCompatActivity {
     switch (item.getItemId()){
       case R.id.add_item:
         //Se agrega un nuevo nombre
-        this.names.add("Added  n°"+ (++counter));
+        //this.names.add("Added  n°"+ (++counter));
         //este metodo hace que se refresque, habiendo sumado el valor anterior, notifique al adapter y se refresque
         this.myAdapter.notifyDataSetChanged();
         return true;
@@ -95,7 +101,7 @@ public class ProductsActivity extends AppCompatActivity {
 
     AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
     //Accedemos al elemento seleccionado para saber cual estamos por borrar
-    menu.setHeaderTitle(this.names.get(info.position));
+    menu.setHeaderTitle(this.names.get(info.position).getName());
 
     inflater.inflate(R.menu.context_menu, menu);
 
@@ -115,7 +121,7 @@ public class ProductsActivity extends AppCompatActivity {
 
         return true;
       case R.id.adding_item:
-        this.names.add("Added  n°"+ (++counter));
+        //this.names.add("Added  n°"+ (++counter));
         //este metodo hace que se refresque, habiendo sumado el valor anterior, notifique al adapter y se refresque
         this.myAdapter.notifyDataSetChanged(); //TODO ver si hace falta
       default:

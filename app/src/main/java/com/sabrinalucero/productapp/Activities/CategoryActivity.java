@@ -39,13 +39,13 @@ public class CategoryActivity extends AppCompatActivity {
     listView = (ListView) findViewById(R.id.listView);
 
     categoryUtil.initDb(this);
-    categories = categoryUtil.getAll();
+    categories = categoryUtil.getAll(this);
 
     //mostrara el contenido segun el evento que presione en cada item del LV
     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(CategoryActivity.this, "clicked : " + categories.get(position), Toast.LENGTH_SHORT).show();
+        Toast.makeText(CategoryActivity.this, "clicked : " + categories.get(position).getName(), Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(CategoryActivity.this, ProductsActivity.class);
         intent.putExtra("CATEGORY_ID", position);

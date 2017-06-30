@@ -76,7 +76,13 @@ public class CategoryUtils {
         }
     }
 
-    public List<Category> getAll(){
+    public List<Category> getAll(Context context){
+
+        if(db == null ) {
+            categoryHelper = new CategorySQLiteHelper(context, "dbDavinci1", null, 1);
+            db = categoryHelper.getWritableDatabase();
+        }
+
         Cursor cursor = db.rawQuery("SELECT * FROM Category", null);
         List<Category> categories = new ArrayList<>();
 
