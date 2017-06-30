@@ -1,4 +1,4 @@
-package com.sabrinalucero.productapp.Activities;
+package com.sabrinalucero.productapp.activities;
 
 import android.content.Context;
 import android.content.Intent;

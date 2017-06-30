@@ -1,7 +1,6 @@
-package com.sabrinalucero.productapp.Activities;
+package com.sabrinalucero.productapp.activities;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.preference.PreferenceActivity;
 import android.support.annotation.Nullable;
 

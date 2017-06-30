@@ -1,4 +1,4 @@
-package com.sabrinalucero.productapp.Activities;
+package com.sabrinalucero.productapp.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,9 +13,7 @@ import com.sabrinalucero.productapp.R;
 import com.sabrinalucero.productapp.adapters.CartAdapter;
 import com.sabrinalucero.productapp.dbUtils.CartMarketUtils;
 import com.sabrinalucero.productapp.model.CartMarket;
-import com.sabrinalucero.productapp.model.Product;
 
-import java.util.Date;
 import java.util.List;
 
 
