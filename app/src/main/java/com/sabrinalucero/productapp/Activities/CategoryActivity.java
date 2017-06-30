@@ -5,22 +5,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.sabrinalucero.productapp.R;
 import com.sabrinalucero.productapp.Utils.Util;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListActivity extends AppCompatActivity {
+public class CategoryActivity extends AppCompatActivity {
 
 
   private SharedPreferences prefs;
@@ -62,16 +58,16 @@ public class ListActivity extends AppCompatActivity {
     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(ListActivity.this, "clicked : " + names.get(position), Toast.LENGTH_SHORT).show();
+        Toast.makeText(CategoryActivity.this, "clicked : " + names.get(position), Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(ListActivity.this, GridActivity.class);
+        Intent intent = new Intent(CategoryActivity.this, ProductsActivity.class);
         startActivity(intent);
 
       }
     });
 
     //enlazamos con nuestro adaptador personalizado
-    MyAdapter myAdapter = new MyAdapter(this, R.layout.list_item, names);
+    MyAdapter myAdapter = new MyAdapter(this, R.layout.list_products, names);
     listView.setAdapter(myAdapter);
 
   }

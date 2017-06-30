@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 
 import com.sabrinalucero.productapp.Activities.LoginActivity;
-import com.sabrinalucero.productapp.Activities.ListActivity;
+import com.sabrinalucero.productapp.Activities.CategoryActivity;
 import com.sabrinalucero.productapp.Utils.Util;
 
 public class SplashActivity extends AppCompatActivity {
@@ -25,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
     Intent intentLogin = new Intent(this, LoginActivity.class);
-    Intent intentMain = new Intent(this, ListActivity.class);
+    Intent intentMain = new Intent(this, CategoryActivity.class);
 
     //si no está vacio el email y no esta vacia la passw
     if(!TextUtils.isEmpty(Util.getUserMailPrefs(prefs)) &&

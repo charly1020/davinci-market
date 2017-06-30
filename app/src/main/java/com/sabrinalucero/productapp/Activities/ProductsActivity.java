@@ -1,7 +1,6 @@
 package com.sabrinalucero.productapp.Activities;
 
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -18,7 +17,7 @@ import com.sabrinalucero.productapp.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GridActivity extends AppCompatActivity {
+public class ProductsActivity extends AppCompatActivity {
 
   private List<String> names;
   private GridView gridView;
@@ -31,7 +30,7 @@ public class GridActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_grid);
+    setContentView(R.layout.category_grid);
 
     gridView = (GridView) findViewById(R.id.gridView);
 
@@ -51,7 +50,7 @@ public class GridActivity extends AppCompatActivity {
     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(GridActivity.this, "clicked : " + names.get(position), Toast.LENGTH_SHORT).show();
+        Toast.makeText(ProductsActivity.this, "clicked : " + names.get(position), Toast.LENGTH_SHORT).show();
 
 
 

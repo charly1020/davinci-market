@@ -114,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
   }
 
   private void goToMain(){
-    Intent intent = new Intent(this, ListActivity.class);
+    Intent intent = new Intent(this, CategoryActivity.class);
     //evitamos que vuelva al activity anterior
     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
     startActivity(intent);
