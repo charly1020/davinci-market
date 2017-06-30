@@ -81,4 +81,5 @@
     <string name="pref_twitter">test</string>
     <string name="title_activity_cart">CartActivity</string>
     <string name="aboutMe">About</string>
+    <string name="go_cart">Go Cart</string>
 </resources>
