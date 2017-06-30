@@ -9,7 +9,7 @@
         <CheckBoxPreference
             android:key="checkBoxPref"
             android:title="Max amount of items"
-            android:summary="Check if you want to set 10 to max number of items"/>
+            android:summary="Check if you want to set 3 to max number of items"/>
 
     </PreferenceCategory>
 

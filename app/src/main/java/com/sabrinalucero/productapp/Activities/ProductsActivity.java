@@ -4,6 +4,8 @@ package com.sabrinalucero.productapp.Activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.CheckBoxPreference;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -58,6 +60,10 @@ public class ProductsActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.products_grid);
+
+    SharedPreferences userDetails = this.getSharedPreferences("userDetails", MODE_PRIVATE);
+    String max = userDetails.getString("checkBoxPref", "");
+
 
     //accedemos al mismo archivo llamandolo del mismo modo
     prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
@@ -127,6 +133,13 @@ public class ProductsActivity extends AppCompatActivity {
         intent = new Intent(ProductsActivity.this, AboutMeActivity.class);
         startActivity(intent);
         return true;
+      case R.id.preferences:
+      {
+        Intent intent1 = new Intent();
+        intent1.setClassName(this, "com.sabrinalucero.productapp.Activities.MyPreferenceActivity");
+        startActivity(intent1);
+        return true;
+      }
       default:
         return super.onOptionsItemSelected(item);
     }
@@ -161,6 +174,16 @@ public class ProductsActivity extends AppCompatActivity {
   }
 
   private void addItemToCart(Product product) {
+    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+    Boolean checkBoxPref = preferences.getBoolean("checkBoxPref", false);
+
+    int count = cartMarketUtils.getAll(this).size();
+
+    if(checkBoxPref && count >= 3) {
+      String message = "You reach the maximun number of articles allows.";
+      Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+      return ;
+    }
 
     CartMarket newCartMarket = new CartMarket(idCartProduct, product.getName(), product.getDescription(), new Date(), true);
     cartMarketUtils.createItem(newCartMarket);

@@ -27,7 +27,9 @@ public class CartMarketUtils {
         cartHelper = new CartMarketSQLiteHelper(context, "dbDavinci1", null, 1);
         db = cartHelper.getWritableDatabase();
 
-        cartHelper.clearTable(db);
+        int cant = getAll(context).size();
+        if(cant == 0)
+         cartHelper.clearTable(db);
 
     }
 
