@@ -171,7 +171,7 @@ public class ProductsUtils {
 
         Product prod15 = new Product();
         prod15.setId(15);
-        prod15.setName("carne picada");
+        prod15.setName("picada");
         prod15.setDescription("carniceria");
         prod15.setCatId(c.getId());
         createProduct(prod15);
