@@ -49,6 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="LOGIN"
+        android:background="@color/colorPrimaryDark"
         tools:layout_editor_absoluteX="90dp"
         tools:layout_editor_absoluteY="356dp"
         android:layout_marginBottom="117dp"
