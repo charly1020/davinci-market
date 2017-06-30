@@ -14,4 +14,7 @@
     <item android:id="@+id/add_item"
           app:showAsAction="ifRoom"
           android:title="Add Item"/>
+    <item
+        android:id="@+id/preferences"
+        android:title="Settings" />
 </menu>

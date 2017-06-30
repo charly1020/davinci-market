@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -67,6 +68,7 @@ public class CategoryActivity extends AppCompatActivity {
 
   }
 
+
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     //invocar al menu sino no va a aparecer
@@ -91,6 +93,13 @@ public class CategoryActivity extends AppCompatActivity {
         intent = new Intent(CategoryActivity.this, AboutMeActivity.class);
         startActivity(intent);
         return true;
+      case R.id.preferences:
+      {
+        Intent intent1 = new Intent();
+        intent1.setClassName(this, "com.sabrinalucero.productapp.Activities.MyPreferenceActivity");
+        startActivity(intent1);
+        return true;
+      }
       default:
         return super.onOptionsItemSelected(item);
 

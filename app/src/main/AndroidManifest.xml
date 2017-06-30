@@ -23,6 +23,10 @@
             android:name=".Activities.CartActivity"
             android:label="Cart List"></activity>
         <activity
+            android:name=".Activities.MyPreferenceActivity"
+            android:label="Preferences">
+        </activity>
+        <activity
             android:name=".Splash.SplashActivity"
             android:theme="@style/SplashScreen">
             <intent-filter>
