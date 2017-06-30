@@ -77,7 +77,7 @@ public class ProductsActivity extends AppCompatActivity {
     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String text = b.get("CATEGORY_ID") + "-clicked : " + products.get(position);
+        String text = products.get(position).getName().toUpperCase();
         Toast.makeText(ProductsActivity.this, text, Toast.LENGTH_SHORT).show();
       }
     });
@@ -113,7 +113,6 @@ public class ProductsActivity extends AppCompatActivity {
     switch (item.getItemId()){
       case R.id.add_item:
         //Se agrega un nuevo nombre
-        //this.names.add("Added  n°"+ (++counter));
         //este metodo hace que se refresque, habiendo sumado el valor anterior, notifique al adapter y se refresque
         this.myAdapter.notifyDataSetChanged();
         return true;
@@ -131,7 +130,6 @@ public class ProductsActivity extends AppCompatActivity {
       default:
         return super.onOptionsItemSelected(item);
     }
-
   }
 
   //infla el layout context menu
@@ -153,18 +151,8 @@ public class ProductsActivity extends AppCompatActivity {
   public boolean onContextItemSelected(MenuItem menuItem) {
     AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuItem.getMenuInfo();
 
-    int id = menuItem.getItemId();
-
-    switch(id){
-      case R.id.delete_item:
-        //Se borra nombre-item clickeado, accediendo desde info a la posicion del elemento que fue seleccionado
-        this.products.remove(info.position);
-        //este metodo hace que se refresque, habiendo sumado el valor anterior, notifique al adapter y se refresque
-        this.myAdapter.notifyDataSetChanged();
-        return true;
+    switch(menuItem.getItemId()){
       case R.id.adding_item:
-        //this.names.add(new Product(90, ""));
-        //este metodo hace que se refresque, habiendo sumado el valor anterior, notifique al adapter y se refresque
         addItemToCart(currentContextualProduct);
         this.myAdapter.notifyDataSetChanged(); //TODO ver si hace falta
       default:
@@ -173,7 +161,6 @@ public class ProductsActivity extends AppCompatActivity {
   }
 
   private void addItemToCart(Product product) {
-
 
     CartMarket newCartMarket = new CartMarket(idCartProduct, product.getName(), product.getDescription(), new Date(), true);
     cartMarketUtils.createItem(newCartMarket);
