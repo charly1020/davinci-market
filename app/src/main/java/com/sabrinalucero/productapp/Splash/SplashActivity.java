@@ -7,8 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.sabrinalucero.productapp.Activities.LoginActivity;
-import com.sabrinalucero.productapp.Activities.CategoryActivity;
+import com.sabrinalucero.productapp.activities.LoginActivity;
+import com.sabrinalucero.productapp.activities.CategoryActivity;
 import com.sabrinalucero.productapp.Utils.Util;
 
 public class SplashActivity extends AppCompatActivity {

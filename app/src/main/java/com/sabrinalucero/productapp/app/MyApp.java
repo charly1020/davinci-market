@@ -1,4 +1,4 @@
-package com.sabrinalucero.productapp.App;
+package com.sabrinalucero.productapp.app;
 
 import android.app.Application;
 import android.os.SystemClock;

@@ -1,6 +1,5 @@
-package com.sabrinalucero.productapp.Activities;
+package com.sabrinalucero.productapp.activities;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 

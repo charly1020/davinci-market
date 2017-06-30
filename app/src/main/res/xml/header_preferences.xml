@@ -6,7 +6,7 @@
     android:layout_height="300dp">
 
     <header
-        android:fragment="com.sabrinalucero.productapp.Activities.MyPreferenceFragment"
+        android:fragment="com.sabrinalucero.productapp.activities.MyPreferenceFragment"
         android:title="Go To preferences "
         android:summary="Choose preferences related amount of items." />
 
