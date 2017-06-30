@@ -45,15 +45,14 @@ public class ProductsActivity extends AppCompatActivity {
     names.add("BEBIDAS");
     names.add("OTROS");
 
+    final Bundle b = getIntent().getExtras();
 
     //mostrara el contenido segun el evento que presione en cada item del LV
     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(ProductsActivity.this, "clicked : " + names.get(position), Toast.LENGTH_SHORT).show();
-
-
-
+        String text = b.get("CATEGORY_ID") + "-clicked : " + names.get(position);
+        Toast.makeText(ProductsActivity.this, text, Toast.LENGTH_SHORT).show();
       }
     });
 

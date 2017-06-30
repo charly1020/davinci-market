@@ -13,6 +13,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.sabrinalucero.productapp.R;
 import com.sabrinalucero.productapp.Utils.Util;
+import com.sabrinalucero.productapp.model.Category;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class CategoryActivity extends AppCompatActivity {
   private SharedPreferences prefs;
 
   private ListView listView;
-  private List<String> names;
+  private List<Category> names;
 
 
   @Override
@@ -38,14 +40,14 @@ public class CategoryActivity extends AppCompatActivity {
     //creamos los datos de la lista datos que muestro
     names = new ArrayList<>();
 
-    names.add("LÁCTEOS");
-    names.add("FRUTAS");
-    names.add("VERDURAS");
-    names.add("CARNICERIA");
-    names.add("LIMPIEZA");
-    names.add("PANADERIA");
-    names.add("BEBIDAS");
-    names.add("OTROS");
+    names.add(new Category(1, "Lacteos", "Producto con vencimiento"));
+    names.add(new Category(2, "Frutas", "Producto con vencimiento"));
+    names.add(new Category(3, "Verduras", "Producto con vencimiento"));
+    names.add(new Category(4, "Carniceria", "Producto con vencimiento"));
+    names.add(new Category(5, "Limpieza", "Producto con vencimiento"));
+    names.add(new Category(6, "Panaderia", "Producto con vencimiento"));
+    names.add(new Category(7, "Bebidas", "Producto con vencimiento"));
+    names.add(new Category(8, "Otros", "Producto con vencimiento"));
 
     //Adaptador, esto es una forma visual de mostrar los datos
    // ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, names);
@@ -61,17 +63,17 @@ public class CategoryActivity extends AppCompatActivity {
         Toast.makeText(CategoryActivity.this, "clicked : " + names.get(position), Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent(CategoryActivity.this, ProductsActivity.class);
+        intent.putExtra("CATEGORY_ID", position);
         startActivity(intent);
 
       }
     });
 
     //enlazamos con nuestro adaptador personalizado
-    MyAdapter myAdapter = new MyAdapter(this, R.layout.category_item, names);
+    CategoryAdapter myAdapter = new CategoryAdapter(this, R.layout.category_item, names);
     listView.setAdapter(myAdapter);
 
   }
-
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
@@ -83,8 +85,9 @@ public class CategoryActivity extends AppCompatActivity {
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
 
-int id = item.getItemId();
-    switch (item.getItemId()) {
+    int id = item.getItemId();
+
+    switch (id) {
       case R.id.menu_logout:
         logOut();
         return true;
@@ -95,6 +98,8 @@ int id = item.getItemId();
       default:
         return super.onOptionsItemSelected(item);
   }
+
+
 }
 
   private void logOut() {

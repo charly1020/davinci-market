@@ -25,7 +25,7 @@ public class MyAdapter extends BaseAdapter {
   public MyAdapter(Context context, int layout, List<String> names) {
     this.context = context;
     this.layout = layout;
-    this.names = names;
+    this.names= names;
   }
 
   //cuantas veces va a iterar sobre la coleccion, devuelve el numero de items que va a dibujar en el LV
