@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by charly on 6/30/17.
@@ -27,7 +28,12 @@ public class CartMarketUtils {
         cartHelper = new CartMarketSQLiteHelper(context, "dbDavinci1", null, 1);
         db = cartHelper.getWritableDatabase();
 
-        int cant = getAll(context).size();
+        int cant = 0;
+        try {
+            cant = getAll(context).size();
+        } catch (Exception e) {
+
+        }
         if(cant == 0)
          cartHelper.clearTable(db);
 
