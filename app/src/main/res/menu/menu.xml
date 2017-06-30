@@ -8,6 +8,9 @@
     <item android:id="@+id/menu_forget_logout"
           android:title="Forget and Log out"
           app:showAsAction="never"/>
+    <item android:id="@+id/menu_aboutMe"
+          android:title="@string/aboutMe"
+          app:showAsAction="never"/>
     <item android:id="@+id/add_item"
           app:showAsAction="ifRoom"
           android:title="Add Item"/>

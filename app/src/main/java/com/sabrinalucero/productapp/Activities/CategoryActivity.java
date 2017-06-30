@@ -47,6 +47,7 @@ public class CategoryActivity extends AppCompatActivity {
 
     categories = categoryUtil.getAll(this);
 
+
     //mostrara el contenido segun el evento que presione en cada item del LV
     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override
@@ -75,7 +76,7 @@ public class CategoryActivity extends AppCompatActivity {
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-
+    Intent intent;
     int id = item.getItemId();
 
     switch (id) {
@@ -86,8 +87,13 @@ public class CategoryActivity extends AppCompatActivity {
         Util.removeSharedPreferences(prefs);
         logOut();
         return true;
+      case R.id.menu_aboutMe:
+        intent = new Intent(CategoryActivity.this, AboutMeActivity.class);
+        startActivity(intent);
+        return true;
       default:
         return super.onOptionsItemSelected(item);
+
   }
 
 

@@ -1,7 +1,9 @@
 package com.sabrinalucero.productapp.Activities;
 
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -16,6 +18,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.sabrinalucero.productapp.R;
+import com.sabrinalucero.productapp.Utils.Util;
 import com.sabrinalucero.productapp.adapters.ProductAdapter;
 import com.sabrinalucero.productapp.dbUtils.CartMarketUtils;
 import com.sabrinalucero.productapp.dbUtils.CategoryUtils;
@@ -45,11 +48,17 @@ public class ProductsActivity extends AppCompatActivity {
   private CartMarketUtils cartMarketUtils = new CartMarketUtils();
 
   private Product currentContextualProduct;
+  private SharedPreferences prefs;
+
+  Intent intent;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.products_grid);
+
+    //accedemos al mismo archivo llamandolo del mismo modo
+    prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
 
     gridView = (GridView) findViewById(R.id.gridView);
 
@@ -106,6 +115,17 @@ public class ProductsActivity extends AppCompatActivity {
         //este metodo hace que se refresque, habiendo sumado el valor anterior, notifique al adapter y se refresque
         this.myAdapter.notifyDataSetChanged();
         return true;
+      case R.id.menu_logout:
+        logOut();
+        return true;
+      case R.id.menu_forget_logout:
+        Util.removeSharedPreferences(prefs);
+        logOut();
+        return true;
+      case R.id.menu_aboutMe:
+        intent = new Intent(ProductsActivity.this, AboutMeActivity.class);
+        startActivity(intent);
+        return true;
       default:
         return super.onOptionsItemSelected(item);
     }
@@ -131,14 +151,14 @@ public class ProductsActivity extends AppCompatActivity {
   public boolean onContextItemSelected(MenuItem menuItem) {
     AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuItem.getMenuInfo();
 
-    switch(menuItem.getItemId()){
-      case R.id.delete_item:
+    int id = menuItem.getItemId();
 
+    switch(id){
+      case R.id.delete_item:
         //Se borra nombre-item clickeado, accediendo desde info a la posicion del elemento que fue seleccionado
         this.products.remove(info.position);
         //este metodo hace que se refresque, habiendo sumado el valor anterior, notifique al adapter y se refresque
         this.myAdapter.notifyDataSetChanged();
-
         return true;
       case R.id.adding_item:
         //this.names.add(new Product(90, ""));
@@ -155,6 +175,12 @@ public class ProductsActivity extends AppCompatActivity {
     CartMarket newCartMarket = new CartMarket(0, product.getName(), product.getDescription(), new Date(), true);
     cartMarketUtils.createItem(newCartMarket);
 
+  }
+
+  private void logOut() {
+    Intent intent = new Intent(this, LoginActivity.class);
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+    startActivity(intent);
   }
 }
 
